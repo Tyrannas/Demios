@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic' rel='stylesheet' type='text/css'>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+	<title>Demios - Admin</title>
+    </head>
+    <body>
+        <form id="test" action="/">
+            <input type = "text" id="Mot1">
+            <input type = "text" id="Mot2">
+            <input type = "text" id="relation">
+            <input type = "submit">
+        </form>
+        <script>
+            var oData = {};
+            var socket = io.connect('localhost:8080');
+            $('#test').submit(function(){
+                oData.m1 = $('#Mot1').val();
+                oData.m2 = $('#Mot2').val();
+                oData.r = $('#relation').val();
+                if(oData.m1 != "" && oData.m2 =="" && oData.r =="r")
+                    socket.emit('addNode',oData);
+                else if (oData.m1 != "" && oData.m2 !="" && oData.r !="")
+                    socket.emit('addRel',oData);
+                //socket.emit('devNode',oData);
+                
+                return false;
+            });
+        </script>
+    </body>
+</html>
