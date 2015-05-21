@@ -14,8 +14,6 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/main.html');
 });
 
-var test = [];
-test = queries.findNode('a');
 
 io.sockets.on('connection', function (socket) {
     console.log('coucou');
@@ -28,5 +26,11 @@ io.sockets.on('connection', function (socket) {
         queries.addRelation(oData.m1,oData.m2,oData.r);
         console.log('gg!');
     });
+    socket.on('addNode',function(mot){
+        queries.addNode(mot);
+    })
+    socket.on('findNode',function(mot){
+        queries.findNode(mot);
+    })
 });
 server.listen(8080);

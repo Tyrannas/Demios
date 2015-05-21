@@ -7,6 +7,7 @@
         <link href='http://fonts.googleapis.com/css?family=Arimo:400,400italic' rel='stylesheet' type='text/css'>
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
+        <script src="http://localhost:8080/public/dictionnaire.js"></script>
 	<title>Demios - Admin</title>
     </head>
     <body>
@@ -19,7 +20,8 @@
         <script>
             var oData = {};
             var socket = io.connect('localhost:8080');
-            $('#test').submit(function(){
+            $('#test').submit(function()
+            {
                 oData.m1 = $('#Mot1').val();
                 oData.m2 = $('#Mot2').val();
                 oData.r = $('#relation').val();
@@ -27,9 +29,12 @@
                     socket.emit('addNode',oData);
                 else if (oData.m1 != "" && oData.m2 !="" && oData.r !="")
                     socket.emit('addRel',oData);
-                //socket.emit('devNode',oData);
-                
+                else return false;//socket.emit('devNode',oData);*/
                 return false;
+            });
+            $('#Mot1').keyup(function(e){
+                var val = $('#Mot1').val();
+                socket.emit('findNode',val);
             });
         </script>
     </body>
