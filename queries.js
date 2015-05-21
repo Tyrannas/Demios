@@ -10,10 +10,10 @@ module.exports =
 		var tRetourne = [];
 		db.cypher(
 		{
-			query: "MATCH (n:mot) WHERE n.label =~ '(?i).*{label}.*' RETURN n.label;",
+			query: "MATCH (n:mot) WHERE n.label =~ {label} RETURN n.label;",
 			params:
 			{
-				label:contains,
+				label: '(?i).*'+contains+'.*',
 			},
 		},
 
@@ -75,7 +75,7 @@ module.exports =
 		var tMots = [];
 		db.cypher(
 		{
-		    query: "MATCH (m:mot {label:{label}}) MATCH (m:mot)-[r:FAIT_PENSER_A]->(n:mot) RETURN r,n;",
+		    query: "MATCH (m:mot {label:{label}}) MATCH (m:mot)-[r:FAIT_PENSER_A]-(n:mot) RETURN r,n;",
 		    params: {
 		        label: mot,
 		    },
