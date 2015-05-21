@@ -28,9 +28,9 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('addNode',function(mot){
         queries.addNode(mot);
-    })
+    });
     socket.on('findNode',function(mot){
         queries.findNode(mot);
-    })
+    });
 });
 server.listen(8080);
