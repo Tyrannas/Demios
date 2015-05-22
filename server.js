@@ -9,11 +9,10 @@ var io = require('socket.io').listen(server);
 var db = new neo4j.GraphDatabase('http://neo4j:Lesbubulles24@localhost:7474');
 
  app.use("/public", express.static(__dirname + '/public'));
-// Chargement de la page index.html
+// Chargement de la page main.html
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/main.html');
 });
-
 
 io.sockets.on('connection', function (socket) {
     console.log('coucou');
@@ -30,7 +29,7 @@ io.sockets.on('connection', function (socket) {
         queries.addNode(mot);
     });
     socket.on('findNode',function(mot){
-        queries.findNode(mot);
+        queries.findNode(mot,socket);
     });
 });
 server.listen(8080);

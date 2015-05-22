@@ -5,15 +5,17 @@ var db = new neo4j.GraphDatabase('http://neo4j:Lesbubulles24@localhost:7474');
 
 module.exports =
 {
-	findNode: function(contains)
+	findNode: function(contains,socket)
 	{
+		var socket = socket;
+		socket.emit('test');
 		var tRetourne = [];
 		db.cypher(
 		{
 			query: "MATCH (n:mot) WHERE n.label =~ {label} RETURN n.label;",
 			params:
 			{
-				label: '(?i).*'+contains+'.*',
+				label: '(?i)'+contains+'.*',
 			},
 		},
 
@@ -37,6 +39,7 @@ module.exports =
 	    	{
 	    		console.log(mot);
 	    	});
+	    	socket.emit('nodeFound',tRetourne);
 	    	return tRetourne;
 		});
 	},

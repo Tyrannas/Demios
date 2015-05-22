@@ -36,6 +36,13 @@
                 var val = $('#Mot1').val();
                 socket.emit('findNode',val);
             });
+            socket.on('nodeFound',function(tMots)
+            {
+                tMots.forEach(function(mot)
+                {
+                    console.log(mot);
+                });
+            });
         </script>
     </body>
 </html>
